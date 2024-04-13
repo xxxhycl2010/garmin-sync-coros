@@ -24,8 +24,12 @@ class GarminClient:
          garth.client.username
       except Exception:
         logger.warning("Garmin is not logging in or the token has expired.")
-        if self.auth_domain and str(self.auth_domain).upper() == "CN":
-          self.garthClient .configure(domain="garmin.cn")
+        if self.auth_domain:
+          if str(self.auth_domain).upper() == "CN":
+            self.garthClient .configure(domain="garmin.cn")
+          else:
+            self.garthClient .configure(domain="garmin.com")
+          
         self.garthClient.login(self.email, self.password)
       return func(self, *args, **kwargs)
     return ware
